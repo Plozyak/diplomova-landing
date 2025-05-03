@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diplomová Pomoc – Nezávazná poptávka</title>
+
+  <!-- Google Ads Global Site Tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11499053873"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-11499053873');
+  </script>
+</head>
+<body style="background: #f1f8e9; margin: 0; font-family: 'Segoe UI', sans-serif;">
+
+  <div id="telegram-form" style="background: #e6f2e6; padding: 30px; border-radius: 10px; max-width: 800px; margin: 40px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+    <h2 style="color: #2e7d32; font-size: 26px;">🎓 Komplexní pomoc s rozpracováním odborných materiálů pro závěrečné práce.</h2>
+
+    <p style="font-size: 16px; margin-top: 10px;">
+      <a href="https://www.diplomovapomoc.com/" target="_blank" style="color: #1b5e20; text-decoration: underline; font-weight: bold;">
+        👉 Zjisti více na hlavní stránce nebo rovnou vyplň nezávaznou objednávku níže.
+      </a>
+    </p>
+
+    <p style="font-size: 17px;">Tvoříme podklady, připravujeme struktury, zpracováváme materiály – kvalitně, včas a s pochopením.</p>
+
+    <ul style="margin-top: 10px; padding-left: 20px; color: #2e7d32;">
+      <li>📑 Návrh tématu a struktury práce</li>
+      <li>🔍 Vyhledávání zdrojů a odborná rešerše</li>
+      <li>🛠 Jazyková a stylistická úprava textu</li>
+      <li>📐 Formátování dle požadovaných norem</li>
+      <li>✍️ Tvoříme originální texty</li>
+      <li>🎯 Připravujeme materiály přesně podle vašich požadavků</li>
+    </ul>
+
+    <p style="margin-top: 20px; font-size: 16px; color: #555;">
+      <strong>Pracujeme eticky a v souladu s pravidly škol. Pomáháme správným směrem.</strong>
+    </p>
+
+    <input id="name" type="text" placeholder="Vaše jméno" required style="width:100%; padding:10px; margin:10px 0; border: 1px solid #ccc; border-radius: 6px;" />
+    <input id="email" type="email" placeholder="Váš e-mail" required style="width:100%; padding:10px; margin:10px 0; border: 1px solid #ccc; border-radius: 6px;" />
+    <textarea id="message" placeholder="S čím vám můžeme pomoci?" required style="width:100%; padding:10px; margin:10px 0; height:100px; border: 1px solid #ccc; border-radius: 6px;"></textarea>
+
+    <button id="sendBtn" onclick="sendTelegram()" style="background:#388e3c; color:white; padding:10px 20px; border:none; border-radius:6px; font-size:16px; transition: transform 0.1s;">📤 Odeslat</button>
+
+    <p id="status" style="color: #2e7d32; margin-top: 10px;"></p>
+
+    <p style="margin-top: 25px; text-align: center;">
+      <a href="https://www.diplomovapomoc.com" style="color: #2e7d32; text-decoration: underline; font-weight: bold;">← Zpět na hlavní stránku</a>
+    </p>
+  </div>
+
+  <!-- Script for Telegram + Conversion -->
+  <script>
+    function sendTelegram() {
+      const token = "8129644056:AAGtcM8b8SADps85oGsDh3oC_IhIwTyu-b4";
+      const chatId = "1445517709";
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const msg = document.getElementById("message").value.trim();
+      const status = document.getElementById("status");
+      const btn = document.getElementById("sendBtn");
+
+      if (!name || !email || !msg) {
+        status.innerText = "❗ Vyplňte prosím všechna pole.";
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = "⏳ Odesílám...";
+      btn.style.transform = "scale(0.95)";
+
+      const text = `📥 *NOVÁ POPTÁVKA*
+
+👤 *Jméno:* ${name}
+📧 *Email:* ${email}
+📝 *Zpráva:* ${msg}`;
+
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: text,
+          parse_mode: "Markdown"
+        })
+      }).then(response => {
+        if (response.ok) {
+          status.innerText = "✅ Zpráva byla úspěšně odeslána!";
+          btn.innerText = "✅ Odesláno";
+          document.getElementById("name").value = '';
+          document.getElementById("email").value = '';
+          document.getElementById("message").value = '';
+
+          gtag('event', 'conversion', {
+            'send_to': 'AW-11499053873/coXOCJG-mrwaELHGlusq',
+            'value': 1.0,
+            'currency': 'UAH'
+          });
+        } else {
+          status.innerText = "❌ Chyba při odesílání zprávy.";
+          btn.innerText = "📤 Odeslat";
+        }
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.innerText = "📤 Odeslat";
+          btn.style.transform = "scale(1)";
+        }, 3000);
+      }).catch(error => {
+        status.innerText = "⚠️ Problém s připojením k Telegram API.";
+        btn.innerText = "📤 Odeslat";
+        btn.disabled = false;
+        btn.style.transform = "scale(1)";
+      });
+    }
+  </script>
+
+</body>
+</html>
