@@ -76,6 +76,7 @@
       <li>🌟 Materiály přesně podle vašich požadavků</li>
     </ul>
     <p><strong>Pracujeme eticky a v souladu s pravidly škol. Pomáháme správným směrem.</strong></p>
+    
     <input id="name" type="text" placeholder="Vaše jméno" required />
     <input id="email" type="email" placeholder="Váš e-mail" required />
     <textarea id="message" placeholder="S čím vám můžeme pomoci?" required></textarea>
@@ -113,7 +114,7 @@
         })
       }).then(response => {
         if (response.ok) {
-          status.innerText = "✅ Zpráva byla úěspěšně odeslána!";
+          status.innerText = "✅ Zpráva byla úspěšně odeslána!";
           btn.innerText = "✅ Odesláno";
           document.getElementById("name").value = '';
           document.getElementById("email").value = '';
@@ -121,7 +122,7 @@
 
           // Google Ads Conversion
           gtag('event', 'conversion', {
-            send_to: 'AW-17049474539/XXXXXXXXXXX', // <- Zde nahraď správnou hodnotou
+            send_to: 'AW-17049474539/XXXXXXXXXXX',
             value: 1.0,
             currency: 'CZK'
           });
@@ -141,5 +142,13 @@
       });
     }
   </script>
+
+  <!-- WhatsApp button -->
+  <a href="https://wa.me/420608369656" target="_blank" 
+     style="position: fixed; bottom: 20px; right: 20px; background-color: #25D366; color: white;
+     padding: 12px 18px; border-radius: 30px; font-weight: bold; text-decoration: none;
+     box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 999;">
+    💬 Napište nám na WhatsApp
+  </a>
 </body>
 </html>
